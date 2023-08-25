@@ -1,18 +1,45 @@
-#include <signal.h>
-#include <unistd.h>
-#include "const.h"
+#include "simple_shell.h"
+
+void help_env(void);
+void help_setenv(void);
+void help_unsetenv(void);
+void help_history(void);
 
 /**
- * signal_handler - prints a new prompt upon a signal
- * @fildes: file descriptor
- *
- * Return: nothing
+ * help_env - Displays information on the shellby builtin command 'env'.
  */
-void signal_handler(int fildes)
+void help_env(void)
 {
-	char *prompt = "\n($) ";
+	char *msg = "env: env\n\tPrints the current environment.\n";
 
-	(void)fildes;
-	signal(SIGINT, signal_handler);
-	write(STDIN_FILENO, prompt, 3);
+	write(STDOUT_FILENO, msg, _strlen(msg));
+}
+
+/**
+ * help_setenv - Displays information on the shellby builtin command 'setenv'.
+ */
+void help_setenv(void)
+{
+	char *msg = "setenv: setenv [VARIABLE] [VALUE]\n\tInitializes a new";
+
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = "environment variable, or modifies an existing one.\n\n";
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = "\tUpon failure, prints a message to stderr.\n";
+	write(STDOUT_FILENO, msg, _strlen(msg));
+}
+
+/**
+ * help_unsetenv - Displays information on the shellby builtin command
+ * 'unsetenv'.
+ */
+void help_unsetenv(void)
+{
+	char *msg = "unsetenv: unsetenv [VARIABLE]\n\tRemoves an ";
+
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = "environmental variable.\n\n\tUpon failure, prints a ";
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = "message to stderr.\n";
+	write(STDOUT_FILENO, msg, _strlen(msg));
 }
